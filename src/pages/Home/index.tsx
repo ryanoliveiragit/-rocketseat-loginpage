@@ -1,5 +1,6 @@
-import { Container, Box } from './styles'
+import { Container, Box, Background } from './styles'
 import { Form } from '../authUser'
+import backgroundImage from "../../assets/backgroundImage.svg"
 
 export function Home() {
     return (
@@ -12,9 +13,10 @@ export function Home() {
             <Form />
         </Box>
         
-        <Box>
-            
-        </Box>
+           <Background>
+            <img src={backgroundImage} />
+           </Background>
+
         </Container>
     )
 }

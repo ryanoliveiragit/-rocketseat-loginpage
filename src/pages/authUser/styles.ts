@@ -8,6 +8,9 @@ export const Container = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   width: 24rem;
 
+  input {
+    height: 2.5rem;
+  }
   .MuiFormHelperText-root {
     margin: 0;
   }

@@ -7,6 +7,7 @@ export const GlobalStyle = createGlobalStyle`
     font-family: Open-Sans, Helvetica, Sans-Serif;
   }
   * {
+  margin: 0;
     p {
         margin: 0;
         padding: 0;

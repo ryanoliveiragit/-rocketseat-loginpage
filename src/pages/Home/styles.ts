@@ -1,13 +1,15 @@
 import styled from "styled-components";
 
+
 export const Container = styled.div`
-  width: 100%;
-  height: 100vh;
+
   display: flex;
   justify-content: center;
   flex-direction: row;
 `;
 export const Box = styled.div`
+
+padding: 0%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -50,3 +52,17 @@ export const Box = styled.div`
     }
   }
 `;
+
+export const Background = styled.div`
+     background-color: red;
+  padding: 0%;
+  width: 50vw;
+  height: 99.6vh;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`
