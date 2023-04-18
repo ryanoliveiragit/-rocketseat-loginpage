@@ -1,7 +1,8 @@
+import { Home } from "./pages/Home"
+
+
 export function App() {
   return (
-    <>
-      <h1>testi</h1>
-    </>
+      <Home />
   )
 }
