@@ -34,8 +34,8 @@ export const Label = styled.label`
 `;
 
 export const ForgotMyPassword = styled(Label)`
-    color: #7c3aed;
-`
+  color: #7c3aed;
+`;
 
 export const Box = styled.div`
   display: flex;
@@ -56,7 +56,7 @@ export const PasswordChange = styled.div`
   justify-content: space-between;
 `;
 
-export const Register = styled.div`
+export const RegisterContainer = styled.div`
   margin-top: 2rem;
   display: flex;
   width: 100%;

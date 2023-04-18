@@ -6,8 +6,8 @@ import {
     Container,
     Box,
     PasswordChange,
-    Register,
     Label,
+    RegisterContainer,
     ForgotMyPassword
 } from './styles'
 
@@ -17,7 +17,7 @@ import { Button } from "../../components/button";
 const schema = z.object({
     email: z.string({
         errorMap: () => {
-            return { message: 'informe um email valido' }
+            return { message: 'Digite um e-mail válido' }
         }
     }).email(),
     password: z.string(),
@@ -25,7 +25,11 @@ const schema = z.object({
 
 type FormProps = z.infer<typeof schema>;
 
-export function Form() {
+interface formPropsButton {
+    onGoToRegisterClick: any;
+}
+
+export function Form({ onGoToRegisterClick }: formPropsButton) {
 
     const {
         handleSubmit,
@@ -77,9 +81,9 @@ export function Form() {
                 </Box>
             </Container>
             <Button type="submit">Entrar</Button>
-            <Register>
-                <span>Ainda não tem uma conta? <a>inscreva-se</a></span>
-            </Register>
+            <RegisterContainer>
+                <span>Ainda não tem uma conta? <a href="#" onClick={onGoToRegisterClick}>Inscreva-se</a></span>
+            </RegisterContainer>
         </form>
     );
 }
