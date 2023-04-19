@@ -26,7 +26,7 @@ const schema = z.object({
 type FormProps = z.infer<typeof schema>;
 
 interface formPropsButton {
-    onGoToRegisterClick: any;
+    onGoToRegisterClick: () => void;
 }
 
 export function Form({ onGoToRegisterClick }: formPropsButton) {

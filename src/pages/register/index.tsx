@@ -8,6 +8,7 @@ interface RegisterProps {
 export function Register({ onGoToLoginClick }: RegisterProps) {
     return (
         <Container>
+            
             <Label>E-mail</Label>
             <TextField
                 type="text"
@@ -35,6 +36,7 @@ export function Register({ onGoToLoginClick }: RegisterProps) {
                 size="small"
                 placeholder="Confirme sua senha"
             />
+
             <ForgotMyPassword>Já possui uma conta? <a href="#" onClick={onGoToLoginClick}>Logar</a></ForgotMyPassword>
         </Container>
     )
