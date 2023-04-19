@@ -1,4 +1,5 @@
 import TextField from "@mui/material/TextField";
+import { Button } from "../../components/button";
 import { Container, Label, ForgotMyPassword } from './styles'
 
 interface RegisterProps {
@@ -7,8 +8,8 @@ interface RegisterProps {
 
 export function Register({ onGoToLoginClick }: RegisterProps) {
     return (
+        <form>
         <Container>
-            
             <Label>E-mail</Label>
             <TextField
                 type="text"
@@ -36,8 +37,9 @@ export function Register({ onGoToLoginClick }: RegisterProps) {
                 size="small"
                 placeholder="Confirme sua senha"
             />
-
+            <Button type='submit'>Cadastrar</Button>
             <ForgotMyPassword>Já possui uma conta? <a href="#" onClick={onGoToLoginClick}>Logar</a></ForgotMyPassword>
         </Container>
+        </form>
     )
 }
