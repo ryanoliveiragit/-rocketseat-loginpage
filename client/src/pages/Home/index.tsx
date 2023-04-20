@@ -26,7 +26,7 @@ export function Home() {
                 </section>
                 <div>
                     {state.showLogin ? (
-                        <Form onGoToRegisterClick={handleGoToRegisterClick} />
+                        <Form onGoToRegisterClick={handleGoToRegisterClick} setIsAuthenticated={undefined} />
                     ) : (
                         <Register onGoToLoginClick={handleGoToLoginClick} />
                     )}

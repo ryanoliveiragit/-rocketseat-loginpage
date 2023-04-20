@@ -1,45 +1,94 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import TextField from "@mui/material/TextField";
+import { useForm } from "react-hook-form";
 import { Button } from "../../components/button";
-import { Container, Label, ForgotMyPassword } from './styles'
+import { Container, Label, ForgotMyPassword, Box, RegisterContainer } from './styles'
+import { z } from 'zod'
+import Axios from 'axios'
 
-interface RegisterProps {
+const schema = z.object({
+    email: z.string({
+        errorMap: () => {
+            return { message: 'Digite um e-mail válido' }
+        }
+    }).email(),
+    password: z.string(),
+    confirmPassword: z.string(),
+}).refine((fields) => fields.password === fields.confirmPassword, {
+    path: ['confirmPassword'],
+    message: 'As senhas precisam ser iguais'
+});
+
+type FormProps = z.infer<typeof schema>;
+
+interface formPropsButton {
     onGoToLoginClick: () => void;
 }
 
-export function Register({ onGoToLoginClick }: RegisterProps) {
+export function Register({ onGoToLoginClick }: formPropsButton) {
+
+    const {
+        handleSubmit,
+        register,
+        formState: { errors },
+    } = useForm<FormProps>({
+        resolver: zodResolver(schema),
+        reValidateMode: "onChange",
+        mode: "all",
+    });
+
+    console.log(errors);
+
+    const handleForm = (data: FormProps) => {
+        Axios.post('http://localhost:3001/register', {
+            email: data.email,
+            password: data.password,
+        }).then((response => {
+            console.log(response)
+        }))
+    };
+
     return (
-        <form>
-        <Container>
-            <Label>E-mail</Label>
-            <TextField
-                type="text"
-                size="small"
-                placeholder="Digite seu e-mail"
-            />
+        <form onSubmit={handleSubmit(handleForm)}>
+            <Container>
+                <Box>
+                    <Label>E-mail</Label>
+                    <TextField
+                        type="text"
+                        size="small"
+                        placeholder="Digite seu e-mail"
+                        {...register("email")}
+                        error={!!errors.email?.message}
+                        helperText={errors.email?.message}
+                    />
+                </Box>
 
-            <Label>Telefone</Label>
-            <TextField
-                type="text"
-                size="small"
-                placeholder="Digite seu número"
-            />
+                <Box>
+                    <Label>Senha</Label>
+                    <TextField
+                        size="small"
+                        type="password"
+                        placeholder="Digite sua senha"
+                        {...register("password")}
+                        error={!!errors.password?.message}
+                        helperText={errors.password?.message}
+                    />
+                    <Label>Confirme sua senha</Label>
+                    <TextField
+                        size="small"
+                        type="password"
+                        placeholder="Digite sua senha"
+                        {...register("confirmPassword")}
+                        error={!!errors.confirmPassword?.message}
+                        helperText={errors.confirmPassword?.message}
+                    />
 
-            <Label>Senha</Label>
-            <TextField
-                type="password"
-                size="small"
-                placeholder="Digite sua senha"
-            />
-
-            <Label>Confirme sua senha</Label>
-            <TextField
-                type="password"
-                size="small"
-                placeholder="Confirme sua senha"
-            />
-            <Button type='submit'>Cadastrar</Button>
-            <ForgotMyPassword>Já possui uma conta? <a href="#" onClick={onGoToLoginClick}>Logar</a></ForgotMyPassword>
-        </Container>
+                </Box>
+            </Container>
+            <RegisterContainer>
+                <span>Já tem uma conta? <a href="#" onClick={onGoToLoginClick}>Entrar</a></span>
+            </RegisterContainer>
+            <Button type="submit">Registrar-se</Button>
         </form>
-    )
+    );
 }

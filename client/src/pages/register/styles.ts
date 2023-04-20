@@ -43,3 +43,43 @@ export const ForgotMyPassword = styled(Label)`
     flex-grow: 0;
   }
 `;
+
+export const Box = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+`;
+
+export const RegisterContainer = styled.div`
+  margin-top: 2rem;
+  display: flex;
+  width: 100%;
+
+  flex-direction: row;
+  justify-content: space-between;
+  span {
+    font-weight: 200;
+    font-size: 1rem;
+    line-height: 24px;
+
+    color: #475569;
+  }
+  a {
+    text-decoration: none;
+    font-style: normal;
+
+    font-size: 1rem;
+    line-height: 24px;
+    font-weight: 600;
+    color: #7c3aed;
+
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+  }
+`;

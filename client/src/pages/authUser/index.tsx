@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import { z } from "zod";
+import Axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 import {
     Container,
@@ -26,10 +28,12 @@ const schema = z.object({
 type FormProps = z.infer<typeof schema>;
 
 interface formPropsButton {
-    onGoToRegisterClick: () => void;
+    onGoToRegisterClick: any;
+    setIsAuthenticated: any;
 }
 
-export function Form({ onGoToRegisterClick }: formPropsButton) {
+export function Form({ onGoToRegisterClick, setIsAuthenticated  }: formPropsButton) {
+    const navigate = useNavigate();
 
     const {
         handleSubmit,
@@ -44,9 +48,18 @@ export function Form({ onGoToRegisterClick }: formPropsButton) {
     console.log(errors);
 
     const handleForm = (data: FormProps) => {
-        console.log({ data });
-    };
-
+        Axios.post("http://localhost:3001/login", {
+          email: data.email,
+          password: data.password
+        }).then((response) => {
+          if (response.status === 200) {
+            setIsAuthenticated('true');
+            navigate("/logado")
+          } else {
+            alert("Usuário não encontrado");
+          }
+        });
+      };
     return (
         <form onSubmit={handleSubmit(handleForm)}>
             <Container>
