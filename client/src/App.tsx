@@ -1,17 +1,21 @@
 import { useState } from 'react';
-import { Router } from './Router';
-import { Form } from './pages/authUser';
+import { Router } from './routes/Router';
+import { MyContext } from "./context/MyContext";
 import { BrowserRouter } from 'react-router-dom';
 
 export function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const [auth, setAut] = useState(false)
+  const [user, setUser] = useState(false)
+  const [pass, setPass] = useState(false)
 
   return (
     <>
+    <MyContext.Provider value={{auth, setAut, user, setUser, pass, setPass}}>
       <BrowserRouter>
-        <Router isAuthenticated={isAuthenticated} />
-        <Form setIsAuthenticated={setIsAuthenticated} onGoToRegisterClick={undefined} />
+        <Router />
       </BrowserRouter>
+      </MyContext.Provider>
     </>
   );
 }

@@ -40,12 +40,13 @@ export function Register({ onGoToLoginClick }: formPropsButton) {
     console.log(errors);
 
     const handleForm = (data: FormProps) => {
-        Axios.post('http://localhost:3001/register', {
+        Axios.post("http://localhost:3001/register", {
             email: data.email,
             password: data.password,
-        }).then((response => {
-            console.log(response)
-        }))
+          }).then((response) => {
+            alert(response.data.msg);
+            console.log(response);
+          });
     };
 
     return (

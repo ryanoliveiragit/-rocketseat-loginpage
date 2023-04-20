@@ -4,7 +4,6 @@ import backgroundImage from "../../assets/backgroundImage.svg"
 import { Register } from '../register';
 import { useState } from 'react';
 
-
 export function Home() {
 
     const [state, setState] = useState<any>({ showLogin: true });
@@ -26,7 +25,7 @@ export function Home() {
                 </section>
                 <div>
                     {state.showLogin ? (
-                        <Form onGoToRegisterClick={handleGoToRegisterClick} setIsAuthenticated={undefined} />
+                        <Form onGoToRegisterClick={handleGoToRegisterClick} />
                     ) : (
                         <Register onGoToLoginClick={handleGoToLoginClick} />
                     )}

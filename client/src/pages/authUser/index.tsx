@@ -15,6 +15,8 @@ import {
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../../components/button";
+import { useContext } from "react";
+import { MyContext } from "../../context/MyContext";
 
 const schema = z.object({
     email: z.string({
@@ -28,11 +30,12 @@ const schema = z.object({
 type FormProps = z.infer<typeof schema>;
 
 interface formPropsButton {
-    onGoToRegisterClick: any;
-    setIsAuthenticated: any;
+    onGoToRegisterClick: () => void;
 }
 
-export function Form({ onGoToRegisterClick, setIsAuthenticated  }: formPropsButton) {
+export function Form({ onGoToRegisterClick }: formPropsButton) {
+    const { setUser, setPass }: any = useContext(MyContext);
+
     const navigate = useNavigate();
 
     const {
@@ -48,18 +51,28 @@ export function Form({ onGoToRegisterClick, setIsAuthenticated  }: formPropsButt
     console.log(errors);
 
     const handleForm = (data: FormProps) => {
-        Axios.post("http://localhost:3001/login", {
+        Axios.post('http://localhost:3001/login', {
           email: data.email,
-          password: data.password
-        }).then((response) => {
-          if (response.status === 200) {
-            setIsAuthenticated('true');
-            navigate("/logado")
-          } else {
-            alert("Usuário não encontrado");
-          }
-        });
+          password: data.password,
+        })
+          .then((response) => {
+            if (
+              response.status === 200 &&
+              response.data.msg === 'Usuário logado com sucesso!'
+            ) {
+              setUser(data.email);
+              setPass(data.password);
+              navigate('/logado');
+            } else {
+              alert('Usuário não encontrado');
+            }
+          })
+          .catch((error) => {
+            alert('Erro ao efetuar login');
+          });
       };
+
+
     return (
         <form onSubmit={handleSubmit(handleForm)}>
             <Container>
