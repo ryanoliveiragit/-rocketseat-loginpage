@@ -1,19 +1,13 @@
-import { useContext } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom'
-import { MyContext } from '../context/MyContext';
+import { Routes, Route } from 'react-router-dom'
 import { Home } from '../pages/Home/index'
-import { Logado } from '../pages/logado'
+import { PrimaryPage } from '../pages/primaryPage/primaryPage'
 import { PrivateRoute } from './privateRoute';
 
 export function Router() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/Logado" element={
-        <PrivateRoute>
-          <Logado/>
-        </PrivateRoute>
-      } />
+      <Route path="/home" element={<PrivateRoute> <PrimaryPage /> </PrivateRoute>} />
     </Routes>
   );
 }

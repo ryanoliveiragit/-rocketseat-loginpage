@@ -34,7 +34,6 @@ interface formPropsButton {
 }
 
 export function Form({ onGoToRegisterClick }: formPropsButton) {
-    const { setUser, setPass }: any = useContext(MyContext);
 
     const navigate = useNavigate();
 
@@ -60,9 +59,8 @@ export function Form({ onGoToRegisterClick }: formPropsButton) {
               response.status === 200 &&
               response.data.msg === 'Usuário logado com sucesso!'
             ) {
-              setUser(data.email);
-              setPass(data.password);
-              navigate('/logado');
+                localStorage.setItem('auth', 'true');
+                navigate('/home')
             } else {
               alert('Usuário não encontrado');
             }
