@@ -7,7 +7,9 @@ export const Container = styled.div`
   justify-items: end;
   font-family: Arial, Helvetica, sans-serif;
   width: 24rem;
-
+  .MuiFormHelperText-root {
+    margin: 0;
+  }
   input {
     height: 2.5rem;
   }
@@ -83,3 +85,6 @@ export const RegisterContainer = styled.div`
     flex-grow: 0;
   }
 `;
+export const Fixed = styled.div`
+margin-top: 1rem;
+`

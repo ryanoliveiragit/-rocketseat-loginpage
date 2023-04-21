@@ -2,9 +2,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import TextField from "@mui/material/TextField";
 import { useForm } from "react-hook-form";
 import { Button } from "../../components/button";
-import { Container, Label, ForgotMyPassword, Box, RegisterContainer } from './styles'
+import { Container, Label, Box, RegisterContainer, Fixed } from './styles'
 import { z } from 'zod'
 import Axios from 'axios'
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+import { useState } from "react";
 
 const schema = z.object({
     email: z.string({
@@ -30,6 +33,7 @@ export function Register({ onGoToLoginClick }: formPropsButton) {
     const {
         handleSubmit,
         register,
+        reset,
         formState: { errors },
     } = useForm<FormProps>({
         resolver: zodResolver(schema),
@@ -38,16 +42,34 @@ export function Register({ onGoToLoginClick }: formPropsButton) {
     });
 
     console.log(errors);
+    const [msgAlert, setMsgAlert] = useState('')
 
     const handleForm = (data: FormProps) => {
         Axios.post("http://localhost:3001/register", {
-            email: data.email,
-            password: data.password,
-          }).then((response) => {
-            alert(response.data.msg);
-            console.log(response);
-          });
-    };
+          email: data.email,
+          password: data.password,
+        }).then((response) => {
+          if (response.status === 200 && response.data.msg === 'Usuário cadastrado com sucesso') {
+            const msgErr = response.data.msg;
+            reset();
+            console.log('INV')
+            setMsgAlert(msgErr);
+            setTimeout(() => {
+              setMsgAlert("");
+              onGoToLoginClick()
+            }, 3000); // oculta o Alert após 3 segundos
+          } else {
+            const msg = response.data.msg;
+            console.log('INV2')
+            setMsgAlert(msg);
+            console.log(response); // limpa o formulário apenas quando o cadastro for bem-sucedido
+            setTimeout(() => {
+              setMsgAlert("");
+            }, 3000); // oculta o Alert após 3 segundos
+          }
+        });
+      };
+     
 
     return (
         <form onSubmit={handleSubmit(handleForm)}>
@@ -86,6 +108,15 @@ export function Register({ onGoToLoginClick }: formPropsButton) {
 
                 </Box>
             </Container>
+            <Stack sx={{ width: '100%' }} spacing={2}>
+                {msgAlert && (
+                    <Fixed>
+                        <Alert color="info">
+                            <span>{msgAlert}</span>
+                        </Alert>
+                    </Fixed>
+                )}
+            </Stack>
             <RegisterContainer>
                 <span>Já tem uma conta? <a href="#" onClick={onGoToLoginClick}>Entrar</a></span>
             </RegisterContainer>

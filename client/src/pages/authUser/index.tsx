@@ -15,8 +15,10 @@ import {
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../../components/button";
-import { useContext } from "react";
-import { MyContext } from "../../context/MyContext";
+
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+import { useState } from "react";
 
 const schema = z.object({
     email: z.string({
@@ -35,6 +37,7 @@ interface formPropsButton {
 
 export function Form({ onGoToRegisterClick }: formPropsButton) {
 
+    const [msgAlert, setMsgAlert] = useState('')
     const navigate = useNavigate();
 
     const {
@@ -51,24 +54,44 @@ export function Form({ onGoToRegisterClick }: formPropsButton) {
 
     const handleForm = (data: FormProps) => {
         Axios.post('http://localhost:3001/login', {
-          email: data.email,
-          password: data.password,
+            email: data.email,
+            password: data.password,
         })
-          .then((response) => {
-            if (
-              response.status === 200 &&
-              response.data.msg === 'Usuário logado com sucesso!'
-            ) {
-                localStorage.setItem('auth', 'true');
-                navigate('/home')
-            } else {
-              alert('Usuário não encontrado');
-            }
-          })
-          .catch((error) => {
-            alert('Erro ao efetuar login');
-          });
-      };
+            .then((response) => {
+                if (
+                    response.status === 200 &&
+                    response.data.msg === 'Usuário logado com sucesso!'
+                ) {
+                    setMsgAlert('logado com sucesso');
+                    setTimeout(() => {
+                        setMsgAlert("");
+                    }, 3000);
+                    localStorage.setItem('auth', 'true');
+                    navigate('/home')
+                }
+                if (
+                    response.status === 200 &&
+                    response.data.msg === 'Senha incorreta'
+                ) {
+                    setMsgAlert('senha incorreta');
+                    setTimeout(() => {
+                        setMsgAlert("");
+                    }, 3000);
+                }
+                if (
+                    response.status === 200 &&
+                    response.data.msg === 'Usuário não registrado!'
+                ) {
+                    setMsgAlert('Usuário não registrado!');
+                    setTimeout(() => {
+                        setMsgAlert("");
+                    }, 3000);
+                }
+            })
+            .catch((error) => {
+                alert('Erro ao efetuar login');
+            });
+    };
 
 
     return (
@@ -103,6 +126,13 @@ export function Form({ onGoToRegisterClick }: formPropsButton) {
                     />
 
                 </Box>
+                <Stack sx={{ width: '100%' }} spacing={2}>
+                    {msgAlert && (
+                        <Alert severity="error" color="error">
+                            <span>{msgAlert}</span>
+                        </Alert>
+                    )}
+                </Stack>
             </Container>
             <Button type="submit">Entrar</Button>
             <RegisterContainer>
