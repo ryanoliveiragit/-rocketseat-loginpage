@@ -5,7 +5,7 @@ Tela de login (Full-Stack)
 </p>
 
 <p align="center">
-  <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </p>
 
 <br>
@@ -24,8 +24,6 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - Styled Components
 - React Hook Form
 - Zod
-- Immer
-- Date Fns
 
 backend:
 - Nodejs
