@@ -12,7 +12,7 @@ Tela de login (Full-Stack)
 <br>
 
 <p align="center">
-  <img alt="Página da aplicação DtMoney" src="https://cdn.discordapp.com/attachments/1122918221863993447/1199116857970536498/banner-1.png?ex=65c15f99&is=65aeea99&hm=b6eb39f0771b5e0bff84ed5910688f5742f9884a25a80fb4dace0218d5747a57&" width="100%">
+  <img alt="Página da aplicação DtMoney" src="https://cdn.discordapp.com/attachments/1059174040767561838/1199121965823295538/241809534-1c5e415d-7564-45af-95fa-d63d7c3f7f48.png?ex=65c1645b&is=65aeef5b&hm=d6fafae123bac8209c6cd301d21f3df9f895d3b25fc1260cbd535eb2039afec8&" width="100%">
 </p>
 
 ## 🚀 Tecnologias
