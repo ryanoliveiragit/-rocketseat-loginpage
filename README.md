@@ -6,7 +6,6 @@ Tela de login (Full-Stack)
 
 <p align="center">
   <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="https://coffe-delivery-rose.vercel.app/">Projeto</a>
 </p>
 
 <br>
